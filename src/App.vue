@@ -10,7 +10,7 @@ import SiteHeader from '@/components/SiteHeader.vue'
       <RouterView />
     </main>
     <footer class="app-footer">
-      <p>合页在浏览器本地处理文件，不会把文件发到服务器。</p>
+      <p>KCTools 在浏览器本地处理文件，不会把文件发到服务器。</p>
     </footer>
   </div>
 </template>

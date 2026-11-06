@@ -13,7 +13,7 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
-      meta: { title: '合页' },
+      meta: { title: 'KCTools' },
     },
     ...buildToolRoutes(),
     {
@@ -26,8 +26,8 @@ const router = createRouter({
 })
 
 router.afterEach((to) => {
-  const title = typeof to.meta.title === 'string' ? to.meta.title : '合页'
-  document.title = title === '合页' ? '合页 · 本地小工具' : `${title} · 合页`
+  const title = typeof to.meta.title === 'string' ? to.meta.title : 'KCTools'
+  document.title = title === 'KCTools' ? 'KCTools · 本地工具' : `${title} · KCTools`
 })
 
 export default router

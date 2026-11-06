@@ -5,10 +5,10 @@ import { RouterLink } from 'vue-router'
 <template>
   <header class="site-header">
     <RouterLink class="brand" to="/">
-      <span class="brand-mark" aria-hidden="true">合</span>
+      <span class="brand-mark" aria-hidden="true">K</span>
       <span class="brand-text">
-        <span class="brand-name">合页</span>
-        <span class="brand-sub">本地小工具</span>
+        <span class="brand-name">KCTools</span>
+        <span class="brand-sub">本地工具</span>
       </span>
     </RouterLink>
     <p class="header-note">文件不上传</p>
@@ -55,9 +55,9 @@ import { RouterLink } from 'vue-router'
 }
 
 .brand-name {
-  font-family: var(--serif);
   font-size: 1.15rem;
   font-weight: 700;
+  letter-spacing: -0.03em;
 }
 
 .brand-sub,

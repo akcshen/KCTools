@@ -39,6 +39,8 @@ const isReady = computed(() => props.tool.status === 'ready' && Boolean(props.to
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
+  width: 100%;
+  height: 100%;
   min-height: 196px;
   padding: 18px;
   border: 1px solid var(--line);

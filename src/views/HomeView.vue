@@ -9,10 +9,10 @@ const readyCount = computed(() => tools.filter((tool) => tool.status === 'ready'
 <template>
   <section class="home">
     <div class="intro">
-      <p class="eyebrow">本地文件工具</p>
-      <h1>常用的文件处理，留在这台设备上。</h1>
+      <p class="eyebrow">浏览器里的本地工具</p>
+      <h1>文件处理留在这台设备上。</h1>
       <p class="lead">
-        合页把小工具收在一起。不登录，文件也不上传。现在可以先把多份 PDF 按顺序合成一份。
+        KCTools 把合并、加密、对比和压缩收在一起。不登录，文件也不上传。
       </p>
     </div>
 
@@ -33,9 +33,7 @@ const readyCount = computed(() => tools.filter((tool) => tool.status === 'ready'
 <style scoped>
 .home {
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(280px, 1.08fr);
-  gap: 42px;
-  align-items: start;
+  gap: 28px;
   padding-top: 22px;
 }
 
@@ -87,15 +85,13 @@ h2 {
 
 .tool-list {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 12px;
   padding: 0;
   list-style: none;
 }
 
-@media (max-width: 800px) {
-  .home {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
+.tool-list > li {
+  min-width: 0;
 }
 </style>

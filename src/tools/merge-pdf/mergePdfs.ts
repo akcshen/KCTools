@@ -59,17 +59,11 @@ export async function mergePdfBuffers(
   }
 
   merged.setTitle('合并 PDF')
-  merged.setProducer('合页')
-  merged.setCreator('合页')
+  merged.setProducer('KCTools')
+  merged.setCreator('KCTools')
 
   const bytes = await merged.save()
   return { bytes, pageCount }
-}
-
-export function pdfBytesToBlob(bytes: Uint8Array): Blob {
-  const copy = new Uint8Array(bytes.byteLength)
-  copy.set(bytes)
-  return new Blob([copy], { type: 'application/pdf' })
 }
 
 export function formatBytes(size: number): string {
@@ -80,6 +74,12 @@ export function formatBytes(size: number): string {
   const mb = kb / 1024
   if (mb < 1024) return `${trimNumber(mb)} MB`
   return `${trimNumber(mb / 1024)} GB`
+}
+
+export function pdfBytesToBlob(bytes: Uint8Array): Blob {
+  const copy = new Uint8Array(bytes.byteLength)
+  copy.set(bytes)
+  return new Blob([copy], { type: 'application/pdf' })
 }
 
 export function mergedFileName(date = new Date()): string {
