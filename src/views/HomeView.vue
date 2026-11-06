@@ -1,9 +1,17 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import ToolCard from '@/components/ToolCard.vue'
-import { tools } from '@/tools/registry'
+import { categories, tools } from '@/tools/registry'
 
 const readyCount = computed(() => tools.filter((tool) => tool.status === 'ready').length)
+const groups = computed(() =>
+  categories
+    .map((category) => ({
+      ...category,
+      tools: tools.filter((tool) => tool.category === category.id),
+    }))
+    .filter((group) => group.tools.length > 0),
+)
 </script>
 
 <template>
@@ -12,20 +20,23 @@ const readyCount = computed(() => tools.filter((tool) => tool.status === 'ready'
       <p class="eyebrow">浏览器里的本地工具</p>
       <h1>文件处理留在这台设备上。</h1>
       <p class="lead">
-        KCTools 把合并、加密、对比和压缩收在一起。不登录，文件也不上传。
+        KCTools 按 PDF、安全、图片和文本分组。不登录，文件也不上传。
       </p>
     </div>
 
     <div class="catalog">
-      <div class="catalog-head">
-        <h2>工具</h2>
-        <p>{{ readyCount }} 个可用</p>
-      </div>
-      <ul class="tool-list">
-        <li v-for="(tool, index) in tools" :key="tool.id">
-          <ToolCard :tool="tool" :index="index + 1" />
-        </li>
-      </ul>
+      <p class="ready-count">{{ readyCount }} 个可用</p>
+      <section v-for="group in groups" :key="group.id" class="category">
+        <div class="catalog-head">
+          <h2>{{ group.label }}</h2>
+          <p>{{ group.tools.length }} 个</p>
+        </div>
+        <ul class="tool-list">
+          <li v-for="(tool, index) in group.tools" :key="tool.id">
+            <ToolCard :tool="tool" :index="index + 1" />
+          </li>
+        </ul>
+      </section>
     </div>
   </section>
 </template>
@@ -78,14 +89,25 @@ h2 {
   margin: 0;
 }
 
-.catalog-head p {
+.catalog-head p,
+.ready-count {
   color: var(--faint);
   font-size: 0.92rem;
 }
 
+.ready-count {
+  margin: 0 0 4px;
+}
+
+.category {
+  display: grid;
+  gap: 12px;
+  margin-top: 22px;
+}
+
 .tool-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 12px;
   padding: 0;
   list-style: none;

@@ -1,6 +1,6 @@
 # KCTools
 
-在浏览器里使用的本地工具站。合并 PDF、加密与解密、文本对比、图片压缩都在本机完成。不登录，文件也不会上传到服务器。
+在浏览器里使用的本地工具站。PDF、安全、图片和文本工具都在本机完成。不登录，文件也不会上传到服务器。
 
 线上站点：[https://tools.kcshen.cn](https://tools.kcshen.cn)（Cloudflare Pages 项目 `heye-tools`）。
 
@@ -37,6 +37,7 @@ npm run preview
 ```bash
 npm run check:merge
 npm run check:cipher
+npm run check:text
 ```
 
 构建产物在 `dist/`（这个目录不进入 git）。`public/_redirects` 里的 `/* /index.html 200` 会在 Cloudflare Pages 上把前端路由交回首页入口。
@@ -45,12 +46,16 @@ npm run check:cipher
 
 | 路径 | 工具 | 怎么试 |
 | --- | --- | --- |
-| `/` | 工具列表 | 应看到 KCTools，以及下面五个工具卡片 |
+| `/` | 工具列表 | 按 PDF、安全、图片、文本分组 |
 | `/tools/merge-pdf` | 合并 PDF | 拖入多份 PDF，调整顺序后点「合并并下载」 |
 | `/tools/encrypt` | 加密文件 | 选择任意文件，输入两次相同密码，下载 `.kct` |
 | `/tools/decrypt` | 解密文件 | 选择刚下载的 `.kct`，输入同一条密码，得到原文件 |
-| `/tools/diff` | 文本对比 | 粘贴或选择两段文本，查看并排和统一差异 |
+| `/tools/hash` | 哈希校验 | 粘贴文本或上传文件，查看 MD5 与 SHA-256 |
 | `/tools/compress-image` | 压缩图片 | 选择 JPEG、PNG 或 WebP，调整质量和最长边后下载 |
+| `/tools/diff` | 文本对比 | 粘贴或选择两段文本，查看并排和统一差异 |
+| `/tools/word-count` | 字数统计 | 粘贴或上传文本，查看字符、词、行和段落 |
+| `/tools/json-format` | JSON 格式化 | 粘贴 JSON，格式化或压缩，错误会指出大致行号 |
+| `/tools/base64` | Base64 | 编码/解码 UTF-8 文本，或把文件编成 Base64、把 Base64 下载成文件 |
 
 密码错误、不是 KCTools 加密文件、非 PDF、空文件、非图片都会给出中文提示。
 
@@ -65,6 +70,10 @@ src/
   tools/merge-pdf/                合并 PDF
   tools/crypto/                   加密与解密
   tools/diff-text/                文本对比
+  tools/word-count/               字数统计
+  tools/json-format/              JSON 格式化
+  tools/base64/                   Base64
+  tools/hash/                     MD5 与 SHA-256
   tools/compress-image/           压缩图片
   components/                     站点头部、工具卡片、工具页外壳
   views/                          首页、404
@@ -72,12 +81,14 @@ src/
 public/_redirects                 Pages 的 SPA 回退
 scripts/check-merge.ts            检查 PDF 合并顺序
 scripts/check-cipher.ts           检查加密往返和文本对比
+scripts/check-text-tools.ts       检查字数、JSON、Base64 和哈希
 ```
 
 ## 如何新增工具
 
 1. 在 `src/tools/<工具 id>/` 新建页面组件。需要处理文件时，把纯函数和页面分开。
 2. 在 `src/tools/registry.ts` 的 `tools` 数组追加一项：
+   - `category`，例如 `'text'`
    - `status: 'ready'`
    - `path`，例如 `/tools/split-pdf`
    - `load: () => import('@/tools/split-pdf/SplitPdfView.vue')`
