@@ -1,0 +1,128 @@
+:root {
+  --bg: #ebe3d6;
+  --surface: #fffaf3;
+  --ink: #241c16;
+  --muted: #6e6258;
+  --faint: #8d8175;
+  --line: #e4d5c4;
+  --accent: #9d3d22;
+  --accent-strong: #7d2f19;
+  --accent-soft: #f8e4d8;
+  --ok: #1d6a43;
+  --ok-soft: #e6f4eb;
+  --danger: #9d2434;
+  --danger-soft: #fde8eb;
+  --shadow: 0 16px 40px rgba(68, 40, 22, 0.08);
+  --serif: "Noto Serif SC", "Songti SC", "STSong", "PMingLiU", serif;
+  --sans: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background:
+    radial-gradient(920px 440px at -8% -12%, rgba(196, 92, 58, 0.18), transparent 58%),
+    radial-gradient(720px 380px at 110% -8%, rgba(63, 110, 78, 0.14), transparent 52%),
+    var(--bg);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.button-primary,
+.button-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button-primary {
+  border: 0;
+  background: var(--accent);
+  color: #fffaf6;
+}
+
+.button-primary:hover:not(:disabled) {
+  background: var(--accent-strong);
+}
+
+.button-primary:disabled {
+  cursor: progress;
+  opacity: 0.62;
+}
+
+.button-ghost {
+  border: 1px solid var(--line);
+  background: rgba(255, 250, 243, 0.8);
+  color: var(--ink);
+}
+
+.button-ghost:hover:not(:disabled) {
+  background: white;
+}
+
+.button-ghost:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
